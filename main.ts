@@ -2,6 +2,24 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import OpenAI from 'openai';
 import fs from 'fs';
+import util from 'util';
+
+interface OriginalFormat {
+  // Определите структуру вашего исходного формата
+  // Например:
+  id: number;
+  name: string;
+  // ...
+}
+
+interface MappedFormat {
+  // Определите структуру вашего целевого формата
+  // Например:
+  identifier: number;
+  title: string;
+  // ...
+}
+
 
 dotenv.config();
 
@@ -52,6 +70,29 @@ async function convertFigmaJsonToHtml(figmaJson: any): Promise<any> {
   console.log("response", response);
 
   return response;
+}
+
+// Convert fs.readFile into Promise version of same
+const readFile = util.promisify(fs.readFile);
+
+async function readAndConvertData() {
+  try {
+    // Чтение данных из figmaData.json
+    const rawData = await readFile('figmaData.json', 'utf-8');
+    const originalData: OriginalFormat[] = JSON.parse(rawData);
+
+    // Преобразование данных в целевой формат
+    const mappedData: MappedFormat[] = originalData.map(item => ({
+      identifier: item.id,
+      title: item.name,
+    }));
+
+    await fs.writeFileSync('figmaDataMapped.json', JSON.stringify(mappedData, null, 2));
+
+    console.log('Преобразование завершено. Результат сохранен в figmaDataMapped.json');
+  } catch (error) {
+    console.error('Произошла ошибка:', error);
+  }
 }
 
 (async () => {

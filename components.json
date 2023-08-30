@@ -4,7 +4,19 @@
     "id": "1:423",
     "children": ["I1:423;217:1628", "I1:423;217:1648"],
     "parent": null,
-    "type": "FRAME"
+    "type": "div",
+    "styles": {
+      "backgroundColor": {
+        "r": 0.04313725605607033,
+        "g": 0.07450980693101883,
+        "b": 0.1568627506494522,
+        "a": 1
+      },
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 16,
+      "paddingBottom": 16
+    }
   },
   {
     "name": "header-left",
