@@ -1,21 +1,24 @@
 [
   {
     "name": "header",
-    "id": "header",
-    "children": ["header-left", "header-right"],
-    "parent": null
+    "id": "1:423",
+    "children": ["I1:423;217:1628", "I1:423;217:1648"],
+    "parent": null,
+    "type": "FRAME"
   },
   {
     "name": "header-left",
-    "id": "header-left",
+    "id": "I1:423;217:1628",
     "children": ["logo", "menu"],
-    "parent": "header"
+    "parent": "1:423",
+    "type": "FRAME"
   },
   {
     "name": "header-right",
-    "id": "header-right",
+    "id": "I1:423;217:1648",
     "children": ["social", "vuesax"],
-    "parent": "header"
+    "parent": "header",
+    "type": "FRAME"
   },
   {
     "name": "logo",
