@@ -17,8 +17,8 @@ const openai = new OpenAI({
 
 console.log('FIGMA_FILE_ID', FIGMA_FILE_ID);
 
-function saveDataToFile(data: any, filename: string) {
-  fs.writeFileSync(filename, JSON.stringify(data, null, 2), 'utf-8');
+async function saveDataToFile(data: any, filename: string) {
+  return fs.writeFileSync(filename, JSON.stringify(data, null, 2), 'utf-8');
 }
 
 async function fetchFigmaData(): Promise<any> {
@@ -59,7 +59,11 @@ async function convertFigmaJsonToHtml(figmaJson: any): Promise<any> {
 
   console.log("figmaData", JSON.stringify(figmaData));
 
-  saveDataToFile(figmaData, 'figmaData.json');
+  await saveDataToFile(figmaData, 'figmaData.json');
+
+  const fileResponse = await openai.files.create({ file: fs.createReadStream('figmaData.json'), purpose: 'fine-tune' });
+
+  console.log("fileResponse", fileResponse);
 
   // const htmlContent = await convertFigmaJsonToHtml(figmaData);
 })();

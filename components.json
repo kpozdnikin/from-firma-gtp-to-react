@@ -1,0 +1,86 @@
+[
+  {
+    "name": "header",
+    "id": "header",
+    "children": ["header-left", "header-right"],
+    "parent": null
+  },
+  {
+    "name": "header-left",
+    "id": "header-left",
+    "children": ["logo", "menu"],
+    "parent": "header"
+  },
+  {
+    "name": "header-right",
+    "id": "header-right",
+    "children": ["social", "vuesax"],
+    "parent": "header"
+  },
+  {
+    "name": "logo",
+    "id": "logo",
+    "children": [],
+    "parent": "header-right"
+  },
+  {
+    "name": "menu",
+    "id": "menu",
+    "children": ["item-1", "item-2", "item-3", "item-4", "item-5", "item-6"],
+    "parent": "header-right"
+  },
+  {
+    "name": "item",
+    "id": "item-1",
+    "children": [],
+    "parent": "menu",
+    "text": "Тексты"
+  },
+  {
+    "name": "item",
+    "id": "item-2",
+    "children": [],
+    "parent": "menu",
+    "text": "Митапы"
+  },
+  {
+    "name": "item",
+    "id": "item-3",
+    "children": [],
+    "parent": "menu",
+    "text": "Figma"
+  },
+  {
+    "name": "item",
+    "id": "item-4",
+    "children": [],
+    "parent": "menu",
+    "text": "Заметки"
+  },
+  {
+    "name": "item",
+    "id": "item-5",
+    "children": [],
+    "parent": "menu",
+    "text": "Дайджест"
+  },
+  {
+    "name": "item",
+    "id": "item-6",
+    "children": ["search-normal", "menu-label"],
+    "parent": "menu"
+  },
+  {
+    "name": "search-normal",
+    "id": "search-normal",
+    "children": [],
+    "parent": "item-6"
+  },
+  {
+    "name": "menu-label",
+    "id": "menu-label",
+    "children": [],
+    "parent": "item-6",
+    "text": "Поиск"
+  }
+]
