@@ -22,11 +22,7 @@ async function readAndConvertData() {
     const originalData: OriginalFormat = findTargetRootNode(ID_TO_FIND, jsonData.document);
     const mappedData: MappedFormat[] = mapDataRecursive(originalData);
 
-    console.log("originalData", originalData);
-
-    // const mappedData: MappedFormat = mapData(originalData);
-
-    // await fs.writeFileSync("figmaDataMapped.json", JSON.stringify(mappedData, null, 2));
+    await fs.writeFileSync("figmaDataMapped.json", JSON.stringify(mappedData, null, 2));
 
     console.log("Преобразование завершено. Результат сохранен в figmaDataMapped.json");
   } catch (error) {
