@@ -41,9 +41,13 @@ async function convertJsonToTsx() {
   console.log("jsonData", jsonData);
 
   try {
-    const result = await convertFigmaJsonToHtml(jsonData);
+    for (const item of jsonData) {
+      const itemResult = await convertFigmaJsonToHtml(item);
 
-    await fs.writeFileSync("targetComponent.tsx", result?.choices?.[0]?.message?.content);
+      console.log("item", item, "itemResult", itemResult);
+
+      await fs.writeFileSync(`./result/${item.name}.tsx`, itemResult?.choices?.[0]?.message?.content);
+    }
   } catch (error) {
     console.error("Произошла ошибка convertJsonToTsx:", error);
   }
