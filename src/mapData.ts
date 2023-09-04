@@ -1,20 +1,29 @@
 import { MappedFormat, OriginalFormat } from "./types";
+import { figmaToCss } from "./figma.utils";
 
-export const mapData = (item: OriginalFormat): MappedFormat => ({
-  name: item.name,
-  id: item.id,
-  parent: null,
-  type: "div",
-  styles: {
-    backgroundColor: `rgba(${item?.backgroundColor?.r}, ${item?.backgroundColor?.g}, ${item?.backgroundColor?.b}, ${item?.backgroundColor?.a})`,
-    paddingLeft: item.paddingLeft,
-    paddingRight: item.paddingRight,
-    paddingTop: item.paddingTop,
-    paddingBottom: item.paddingBottom || 0,
-    width: item.absoluteBoundingBox.width,
-    height: item.absoluteBoundingBox.height,
-  },
-});
+export const mapData = (item: OriginalFormat): MappedFormat => {
+  const layoutStyles = figmaToCss(item);
+
+  return {
+    name: item.name,
+    id: item.id,
+    parent: null,
+    type: item.type === "FRAME" ? "div" : "",
+    text: item.characters || "",
+    styles: {
+      ...layoutStyles,
+      backgroundColor: item.backgroundColor
+        ? `rgba(${item?.backgroundColor?.r}, ${item?.backgroundColor?.g}, ${item?.backgroundColor?.b}, ${item?.backgroundColor?.a})`
+        : "inherit",
+      paddingLeft: item.paddingLeft,
+      paddingRight: item.paddingRight,
+      paddingTop: item.paddingTop,
+      paddingBottom: item.paddingBottom || 0,
+      width: item.absoluteBoundingBox.width,
+      height: item.absoluteBoundingBox.height,
+    },
+  };
+};
 
 export const mapDataRecursive = (item: OriginalFormat): MappedFormat[] => {
   const result: MappedFormat[] = [];
