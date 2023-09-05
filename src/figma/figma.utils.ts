@@ -1,11 +1,15 @@
+import fs from "fs";
 import axios from "axios";
 import dotenv from "dotenv";
-import { CssLayout, FigmaData, OriginalFormat } from "./types";
+import { CssLayout, FigmaData, MappedFormat, OriginalFormat } from "../types";
+import { findTargetRootNode, readFile } from "../utils";
+import { mapDataRecursive } from "./mapData";
 
 dotenv.config();
 
 const FIGMA_FILE_ID = process.env.FIGMA_FILE_ID;
 const FIGMA_ACCESS_TOKEN = process.env.FIRMA_API_KEY;
+const ID_TO_FIND = process.env.TARGET_ROOT_ID;
 
 export const fetchFigmaData = async (): Promise<FigmaData> => {
   if (!FIGMA_FILE_ID) {
@@ -77,4 +81,20 @@ export const figmaToCss = (figmaObject: OriginalFormat): CssLayout => {
   }
 
   return css;
+};
+
+export const readAndConvertData = async () => {
+  try {
+    // Чтение данных из figmaData.json
+    const rawData = await readFile("figmaData.json", "utf-8");
+    const jsonData: { document: OriginalFormat } = JSON.parse(rawData);
+    const originalData: OriginalFormat = findTargetRootNode(ID_TO_FIND, jsonData.document);
+    const mappedData: MappedFormat[] = mapDataRecursive(originalData);
+
+    await fs.writeFileSync("figmaDataMapped.json", JSON.stringify(mappedData, null, 2));
+
+    console.log("Преобразование завершено. Результат сохранен в figmaDataMapped.json");
+  } catch (error) {
+    console.error("Произошла ошибка:", error);
+  }
 };

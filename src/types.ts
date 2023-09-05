@@ -34,6 +34,16 @@ export interface OriginalFormat {
   layoutMode?: "HORIZONTAL" | "VERTICAL";
   primaryAxisAlignItems?: "SPACE_BETWEEN" | "CENTER" | "MIN" | "MAX";
   counterAxisAlignItems: "CENTER" | "MIN" | "MAX" | "BASELINE";
+  style?: {
+    fontFamily?: string;
+    fontPostScriptName?: string;
+    fontWeight?: number;
+    fontSize?: number;
+    textAlignHorizontal?: "LEFT" | "RIGHT" | "CENTER";
+    textAlignVertical?: "BASELINE" | "TOP" | "MIDDLE" | "BOTTOM" | "SUB" | "TEXT-TOP";
+    letterSpacing?: string;
+    lineHeightPx?: number;
+  }
 }
 
 export interface MappedFormat {
@@ -50,6 +60,14 @@ export interface MappedFormat {
     paddingBottom?: number;
     width: number;
     height: number;
+    fontFamily?: string;
+    fontPostScriptName?: string;
+    fontWeight?: number;
+    fontSize?: number;
+    textAlign?: "LEFT" | "RIGHT" | "CENTER";
+    verticalAlign?: "BASELINE" | "TOP" | "MIDDLE" | "BOTTOM" | "SUB" | "TEXT-TOP";
+    letterSpacing?: string;
+    lineHeight?: string;
   };
 }
 

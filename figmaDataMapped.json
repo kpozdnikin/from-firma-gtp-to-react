@@ -1,24 +1,5 @@
 [
   {
-    "name": "header",
-    "id": "1:423",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "justifyContent": "center",
-      "backgroundColor": "rgba(0.04313725605607033, 0.07450980693101883, 0.1568627506494522, 1)",
-      "paddingLeft": 24,
-      "paddingRight": 24,
-      "paddingTop": 16,
-      "paddingBottom": 0,
-      "width": 1200,
-      "height": 73
-    }
-  },
-  {
     "name": "header-wrap",
     "id": "I1:423;217:1627",
     "parent": null,
@@ -67,66 +48,6 @@
     }
   },
   {
-    "name": "МАМКИН",
-    "id": "I1:423;217:1630",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 91.12014770507812,
-      "height": 15.346693992614746
-    }
-  },
-  {
-    "name": "МАМКИН",
-    "id": "I1:423;217:1631",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 14.908233642578125,
-      "height": 15.346694946289062
-    }
-  },
-  {
-    "name": "ДИЗАЙНЕР",
-    "id": "I1:423;217:1632",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 110.16134643554688,
-      "height": 18.5914249420166
-    }
-  },
-  {
-    "name": "ДИЗАЙНЕР",
-    "id": "I1:423;217:1633",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 6.5771484375,
-      "height": 2.850099563598633
-    }
-  },
-  {
     "name": "menu",
     "id": "I1:423;217:1634",
     "parent": null,
@@ -160,7 +81,7 @@
     "name": "menu-label",
     "id": "I1:423;217:1636",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "Весь материал",
     "styles": {
       "display": "flex",
@@ -190,7 +111,7 @@
     "name": "menu-label",
     "id": "I1:423;217:1638",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "Тексты",
     "styles": {
       "display": "flex",
@@ -220,7 +141,7 @@
     "name": "menu-label",
     "id": "I1:423;217:1640",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "Митапы",
     "styles": {
       "display": "flex",
@@ -250,7 +171,7 @@
     "name": "menu-label",
     "id": "I1:423;217:1642",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "Figma",
     "styles": {
       "display": "flex",
@@ -280,7 +201,7 @@
     "name": "menu-label",
     "id": "I1:423;217:1644",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "Заметки",
     "styles": {
       "display": "flex",
@@ -310,7 +231,7 @@
     "name": "menu-label",
     "id": "I1:423;487:5632",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "Дайджест",
     "styles": {
       "display": "flex",
@@ -338,100 +259,10 @@
     }
   },
   {
-    "name": "vuesax/linear/search-normal",
-    "id": "I1:423;217:1646",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "rgba(0, 0, 0, 0)",
-      "paddingBottom": 0,
-      "width": 20,
-      "height": 20
-    }
-  },
-  {
-    "name": "vuesax/linear/search-normal",
-    "id": "I1:423;217:1646;217:853",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "rgba(0, 0, 0, 0)",
-      "paddingBottom": 0,
-      "width": 20,
-      "height": 20
-    }
-  },
-  {
-    "name": "search-normal",
-    "id": "I1:423;217:1646;217:854",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "rgba(0, 0, 0, 0)",
-      "paddingBottom": 0,
-      "width": 20,
-      "height": 20
-    }
-  },
-  {
-    "name": "Vector",
-    "id": "I1:423;217:1646;217:855",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 15.833332061767578,
-      "height": 15.833333015441895
-    }
-  },
-  {
-    "name": "Vector",
-    "id": "I1:423;217:1646;217:856",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 1.6666679382324219,
-      "height": 1.6666665077209473
-    }
-  },
-  {
-    "name": "Vector",
-    "id": "I1:423;217:1646;217:857",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 20,
-      "height": 20
-    }
-  },
-  {
     "name": "menu-label",
     "id": "I1:423;217:1647",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "Поиск",
     "styles": {
       "display": "flex",
@@ -476,7 +307,7 @@
     "name": "social",
     "id": "I1:423;217:1650",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "youtube",
     "styles": {
       "display": "flex",
@@ -491,7 +322,7 @@
     "name": "social",
     "id": "I1:423;217:1651",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "vk",
     "styles": {
       "display": "flex",
@@ -506,7 +337,7 @@
     "name": "social",
     "id": "I1:423;217:1652",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "telegram",
     "styles": {
       "display": "flex",
@@ -521,7 +352,7 @@
     "name": "social",
     "id": "I1:423;381:5967",
     "parent": null,
-    "type": "",
+    "type": "span",
     "text": "dprofile",
     "styles": {
       "display": "flex",
@@ -530,126 +361,6 @@
       "paddingBottom": 0,
       "width": 56,
       "height": 20
-    }
-  },
-  {
-    "name": "vuesax",
-    "id": "I1:423;217:1653",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "rgba(0, 0, 0, 0)",
-      "paddingBottom": 0,
-      "width": 20,
-      "height": 20
-    }
-  },
-  {
-    "name": "vuesax/linear/sun",
-    "id": "I1:423;217:1653;217:1445",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "rgba(0, 0, 0, 0)",
-      "paddingBottom": 0,
-      "width": 20,
-      "height": 20
-    }
-  },
-  {
-    "name": "vuesax/linear/sun",
-    "id": "I1:423;217:1653;217:1445;217:1439",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "rgba(0, 0, 0, 0)",
-      "paddingBottom": 0,
-      "width": 20,
-      "height": 20
-    }
-  },
-  {
-    "name": "sun",
-    "id": "I1:423;217:1653;217:1445;217:1440",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "rgba(0, 0, 0, 0)",
-      "paddingBottom": 0,
-      "width": 20,
-      "height": 20
-    }
-  },
-  {
-    "name": "Vector",
-    "id": "I1:423;217:1653;217:1445;217:1441",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 10.83331298828125,
-      "height": 10.833333015441895
-    }
-  },
-  {
-    "name": "Vector",
-    "id": "I1:423;217:1653;217:1445;217:1442",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 16.66668701171875,
-      "height": 16.66666603088379
-    }
-  },
-  {
-    "name": "Vector",
-    "id": "I1:423;217:1653;217:1445;217:1443",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 20,
-      "height": 20
-    }
-  },
-  {
-    "name": "devider",
-    "id": "I1:423;217:1654",
-    "parent": null,
-    "type": "",
-    "text": "",
-    "styles": {
-      "display": "flex",
-      "flexDirection": "column",
-      "backgroundColor": "inherit",
-      "paddingBottom": 0,
-      "width": 1152,
-      "height": 0
     }
   }
 ]

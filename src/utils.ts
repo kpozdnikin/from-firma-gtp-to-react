@@ -1,4 +1,5 @@
 import fs from "fs";
+import util from "util";
 import { OriginalFormat } from "./types";
 
 export const findTargetRootNode = (targetId: string, item: OriginalFormat) => {
@@ -31,6 +32,19 @@ export const findTargetRootNode = (targetId: string, item: OriginalFormat) => {
   return targetItem;
 };
 
-async function saveDataToFile(data: any, filename: string) {
+export const saveDataToFile = async (data: any, filename: string) => {
   return fs.writeFileSync(filename, JSON.stringify(data, null, 2), "utf-8");
-}
+};
+
+export const saveDataToFileSync = (filePath: string, dataToAppend: string) => {
+  fs.appendFile(filePath, dataToAppend, "utf8", (error) => {
+    if (error) {
+      console.error("Ошибка записи в файл:", error);
+    } else {
+      console.log("Данные добавлены в файл без перезаписи.");
+    }
+  });
+};
+
+// Convert fs.readFile into Promise version of same
+export const readFile = util.promisify(fs.readFile);
