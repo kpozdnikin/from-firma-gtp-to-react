@@ -1,5 +1,23 @@
 [
   {
+    "name": "header",
+    "id": "1:423",
+    "parent": null,
+    "type": "div",
+    "text": "",
+    "styles": {
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "center",
+      "backgroundColor": "rgba(0.04313725605607033, 0.07450980693101883, 0.1568627506494522, 1)",
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 16,
+      "paddingBottom": 0,
+      "height": 73
+    }
+  },
+  {
     "name": "header-wrap",
     "id": "I1:423;217:1627",
     "parent": null,
@@ -12,7 +30,6 @@
       "alignItems": "center",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 1152,
       "height": 41
     }
   },
@@ -28,7 +45,6 @@
       "alignItems": "center",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 641,
       "height": 41
     }
   },
@@ -43,7 +59,6 @@
       "flexDirection": "column",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 111,
       "height": 41
     }
   },
@@ -58,7 +73,6 @@
       "flexDirection": "row",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 490,
       "height": 20
     }
   },
@@ -73,7 +87,6 @@
       "flexDirection": "row",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 115,
       "height": 20
     }
   },
@@ -89,7 +102,13 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 115,
-      "height": 20
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
     }
   },
   {
@@ -103,7 +122,6 @@
       "flexDirection": "row",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 51,
       "height": 20
     }
   },
@@ -119,7 +137,13 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 51,
-      "height": 20
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
     }
   },
   {
@@ -133,7 +157,6 @@
       "flexDirection": "row",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 59,
       "height": 20
     }
   },
@@ -149,7 +172,13 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 59,
-      "height": 20
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
     }
   },
   {
@@ -163,7 +192,6 @@
       "flexDirection": "row",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 46,
       "height": 20
     }
   },
@@ -179,7 +207,13 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 46,
-      "height": 20
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
     }
   },
   {
@@ -193,7 +227,6 @@
       "flexDirection": "row",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 63,
       "height": 20
     }
   },
@@ -209,7 +242,13 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 63,
-      "height": 20
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
     }
   },
   {
@@ -223,7 +262,6 @@
       "flexDirection": "row",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 76,
       "height": 20
     }
   },
@@ -239,7 +277,13 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 76,
-      "height": 20
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
     }
   },
   {
@@ -254,7 +298,20 @@
       "alignItems": "center",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 75,
+      "height": 20
+    }
+  },
+  {
+    "name": "vuesax/linear/search-normal",
+    "id": "I1:423;217:1646",
+    "parent": null,
+    "type": "div",
+    "text": "",
+    "styles": {
+      "display": "flex",
+      "flexDirection": "column",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "paddingBottom": 0,
       "height": 20
     }
   },
@@ -270,7 +327,13 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 47,
-      "height": 20
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
     }
   },
   {
@@ -284,7 +347,6 @@
       "flexDirection": "row",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 318,
       "height": 20
     }
   },
@@ -299,7 +361,6 @@
       "flexDirection": "row",
       "backgroundColor": "rgba(0, 0, 0, 0)",
       "paddingBottom": 0,
-      "width": 250,
       "height": 20
     }
   },
@@ -315,7 +376,13 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 62,
-      "height": 20
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
     }
   },
   {
@@ -330,7 +397,13 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 17,
-      "height": 20
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
     }
   },
   {
@@ -345,7 +418,13 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 67,
-      "height": 20
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
     }
   },
   {
@@ -360,6 +439,40 @@
       "backgroundColor": "inherit",
       "paddingBottom": 0,
       "width": 56,
+      "height": 20,
+      "fontFamily": "Gilroy",
+      "fontWeight": 500,
+      "fontSize": 16,
+      "textAlign": "LEFT",
+      "verticalAlign": "TOP",
+      "lineHeight": "20px"
+    }
+  },
+  {
+    "name": "vuesax",
+    "id": "I1:423;217:1653",
+    "parent": null,
+    "type": "div",
+    "text": "",
+    "styles": {
+      "display": "flex",
+      "flexDirection": "column",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "paddingBottom": 0,
+      "height": 20
+    }
+  },
+  {
+    "name": "vuesax/linear/sun",
+    "id": "I1:423;217:1653;217:1445",
+    "parent": null,
+    "type": "div",
+    "text": "",
+    "styles": {
+      "display": "flex",
+      "flexDirection": "column",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "paddingBottom": 0,
       "height": 20
     }
   }

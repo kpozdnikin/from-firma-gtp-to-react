@@ -43,7 +43,7 @@ export interface OriginalFormat {
     textAlignVertical?: "BASELINE" | "TOP" | "MIDDLE" | "BOTTOM" | "SUB" | "TEXT-TOP";
     letterSpacing?: string;
     lineHeightPx?: number;
-  }
+  };
 }
 
 export interface MappedFormat {
@@ -58,7 +58,7 @@ export interface MappedFormat {
     paddingRight: number;
     paddingTop: number;
     paddingBottom?: number;
-    width: number;
+    width?: number;
     height: number;
     fontFamily?: string;
     fontPostScriptName?: string;

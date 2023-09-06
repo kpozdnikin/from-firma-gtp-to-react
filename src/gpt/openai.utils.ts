@@ -10,6 +10,7 @@ dotenv.config();
 
 const OPENAI_API_KEY = process.env.CHAT_GPT_API_KEY;
 const OPEN_AI_ORG_ID = process.env.OPEN_AI_ORG_ID;
+const OPENAI_FINE_TUNNING_JOB_ID = process.env.OPENAI_FINE_TUNNING_JOB_ID;
 const INTRO_MESSAGE =
   "You are a helpful assistant that converts Figma JSON with styles to TSX. " +
   "I will send you json object, please convert it to a react typescript component which I can copy and paste into .tsx file and it will work properly without any bugs.";
@@ -33,7 +34,7 @@ uploadedFile {
  */
 export const createFineTuningFile = () => {
   return openai.files.create({
-    file: fs.createReadStream("fineTune.txt"),
+    file: fs.createReadStream("fineTune.jsonl"),
     purpose: "fine-tune",
   });
 };
@@ -43,6 +44,10 @@ export const createFineTuningJob = (fileName: string) => {
     model: "gpt-3.5-turbo",
     training_file: fileName,
   });
+};
+
+export const retrieveFineTuningJob = () => {
+  return openai.fineTuning.jobs.retrieve(OPENAI_FINE_TUNNING_JOB_ID);
 };
 
 export const convertFigmaJsonToHtml = async (jsonItem: MappedFormat): Promise<any> => {
@@ -65,24 +70,17 @@ export const convertFigmaJsonToHtml = async (jsonItem: MappedFormat): Promise<an
 
   return openai.chat.completions.create({
     messages,
-    model: "gpt-3.5-turbo",
+    model: `ft:gpt-3.5-turbo-0613:usetech::7vlSlcrp`,
   });
 };
 
 export const convertJsonToTsx = async () => {
   const rawData = await readFile("figmaDataMapped.json", "utf-8");
-
-  console.log("rawData", rawData);
-
   const jsonData: MappedFormat[] = JSON.parse(rawData);
-
-  console.log("jsonData", jsonData);
 
   try {
     for (const item of jsonData) {
       const itemResult = await convertFigmaJsonToHtml(item);
-
-      console.log("item", item, "itemResult", itemResult);
 
       await fs.writeFileSync(`./result/${item.name}.tsx`, itemResult?.choices?.[0]?.message?.content);
     }

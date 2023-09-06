@@ -8,7 +8,7 @@ export const mapData = (item: OriginalFormat): MappedFormat => {
     name: item.name,
     id: item.id,
     parent: null,
-    type: item.type === "FRAME" ? "div" : item.type === "TEXT" ? "span" : "",
+    type: item.type === "FRAME" || item.type === "INSTANCE" ? "div" : item.type === "TEXT" ? "span" : "",
     text: item.characters || "",
     styles: {
       ...layoutStyles,
@@ -19,7 +19,7 @@ export const mapData = (item: OriginalFormat): MappedFormat => {
       paddingRight: item.paddingRight,
       paddingTop: item.paddingTop,
       paddingBottom: item.paddingBottom || 0,
-      width: item.absoluteBoundingBox.width,
+      ...(item.type === "TEXT" ? { width: item.absoluteBoundingBox.width } : {}),
       height: item.absoluteBoundingBox.height,
       ...(item.style?.fontFamily ? { fontFamily: item.style.fontFamily } : {}),
       ...(item.style?.fontWeight ? { fontWeight: item.style.fontWeight } : {}),

@@ -2250,10 +2250,6 @@
               "b": 0.1568627506494522,
               "a": 1
             },
-            "styles": {
-              "fills": "1:120",
-              "fill": "1:120"
-            },
             "layoutMode": "VERTICAL",
             "counterAxisSizingMode": "FIXED",
             "itemSpacing": 16,
@@ -2378,19 +2374,12 @@
       "styleType": "FILL",
       "remote": true,
       "description": ""
-    },
-    "1:120": {
-      "key": "d0b3279f2f57a00e4abb72579a1611250dcb8384",
-      "name": "dark/bg/main",
-      "styleType": "FILL",
-      "remote": true,
-      "description": ""
     }
   },
   "name": "Untitled",
-  "lastModified": "2023-08-29T09:17:36Z",
-  "thumbnailUrl": "https://s3-alpha.figma.com/thumbnails/5c0e31e4-fc70-49e5-bc25-e2b6ccda1635?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQ4GOSFWCTQ5V5AOZ%2F20230827%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230827T120000Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=134a8e37eb5d8fc8a542283d227b2201ab391e79a0d055036d3b46503f3d8691",
-  "version": "4069586788",
+  "lastModified": "2023-08-30T07:42:01Z",
+  "thumbnailUrl": "https://s3-alpha.figma.com/thumbnails/461b7de7-c82e-4f5e-b7e3-5cb8c13dc721?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQ4GOSFWC3B66D3S5%2F20230903%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230903T120000Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=c122bde862f385097572c63e904ccd15d9dee6efca6080aa7a6b3526c500b23d",
+  "version": "4075962950",
   "role": "viewer",
   "editorType": "figma",
   "linkAccess": "view"
