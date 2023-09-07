@@ -15,10 +15,10 @@ export const mapData = (item: OriginalFormat): MappedFormat => {
       backgroundColor: item.backgroundColor
         ? `rgba(${item?.backgroundColor?.r}, ${item?.backgroundColor?.g}, ${item?.backgroundColor?.b}, ${item?.backgroundColor?.a})`
         : "inherit",
-      paddingLeft: item.paddingLeft,
-      paddingRight: item.paddingRight,
-      paddingTop: item.paddingTop,
-      paddingBottom: item.paddingBottom || 0,
+      ...(item.paddingTop ? { paddingTop: item.paddingTop } : {}),
+      ...(item.paddingLeft ? { paddingLeft: item.paddingLeft } : {}),
+      ...(item.paddingRight ? { paddingRight: item.paddingRight } : {}),
+      ...(item.paddingBottom ? { paddingBottom: item.paddingBottom } : {}),
       ...(item.type === "TEXT" ? { width: item.absoluteBoundingBox.width } : {}),
       height: item.absoluteBoundingBox.height,
       ...(item.style?.fontFamily ? { fontFamily: item.style.fontFamily } : {}),

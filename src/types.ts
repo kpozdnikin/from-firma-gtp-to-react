@@ -54,9 +54,9 @@ export interface MappedFormat {
   text?: string;
   styles: {
     backgroundColor: string;
-    paddingLeft: number;
-    paddingRight: number;
-    paddingTop: number;
+    paddingLeft?: number;
+    paddingRight?: number;
+    paddingTop?: number;
     paddingBottom?: number;
     width?: number;
     height: number;
