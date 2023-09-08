@@ -1,19 +1,7 @@
-import OpenAI from "openai";
 import dotenv from "dotenv";
-import {
-  convertJsonToTsx,
-  createFineTuningFile,
-  createFineTuningJob,
-  retrieveFineTuningJob,
-} from "./src/gpt/openai.utils";
-import { fetchFigmaData, readAndConvertData } from "./src/figma/figma.utils";
-import { saveDataToFile } from "./src/utils";
-import FileObject = OpenAI.FileObject;
+import { convertFigmaJsonToReactComponent, getModels } from "./src/gpt/openai.utils";
 
 dotenv.config();
-
-const OPENAI_FILE_ID = process.env.OPENAI_FILE_ID;
-const OPENAI_FINE_TUNNINT_JOB_ID = process.env.OPENAI_FINE_TUNNINT_JOB_ID;
 
 (async () => {
   // 1. Fetch data from figma
@@ -21,22 +9,11 @@ const OPENAI_FINE_TUNNINT_JOB_ID = process.env.OPENAI_FINE_TUNNINT_JOB_ID;
   // console.log("figmaData", JSON.stringify(figmaData));
   // 2. Save data from figma into a file
   // await saveDataToFile(figmaData, "figmaData.json");
-  // 3. Convert data to a more simple format
-  await readAndConvertData();
-  /*
-  const uploadedFile: FileObject = await createFineTuningFile();
-  console.log("uploadedFile", uploadedFile);
-  */
+  // 3. Split data to a separate objects without children key
+  // 4. Convert each object to a separate tsx component in a separate file
+  const result = await getModels();
+  // const result = await convertFigmaJsonToReactComponent("header");
 
-  /*
-  const fineTuningJob = await createFineTuningJob(OPENAI_FILE_ID);
-  console.log("fineTuningJob", fineTuningJob);
-  */
-
-  /*
-  const job = await retrieveFineTuningJob();
-  console.log("job", job);
-
-  await convertJsonToTsx();
-  */
+  console.log("result", result);
+  // 5. Build the app to render everything in a one file
 })();

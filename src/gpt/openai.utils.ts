@@ -1,9 +1,8 @@
 import fs from "fs";
-import { Readable } from "stream";
 import OpenAI from "openai";
 import { CreateChatCompletionRequestMessage } from "openai/src/resources/chat/completions";
 import dotenv from "dotenv";
-import { MappedFormat, UserPrompt } from "../types";
+import { MappedFormat, OriginalFormat, UserPrompt } from "../types";
 import { readFile } from "../utils";
 
 dotenv.config();
@@ -50,7 +49,7 @@ export const retrieveFineTuningJob = () => {
   return openai.fineTuning.jobs.retrieve(OPENAI_FINE_TUNNING_JOB_ID);
 };
 
-export const convertFigmaJsonToHtml = async (jsonItem: MappedFormat): Promise<any> => {
+export const convertFigmaJsonToHtml = async (jsonItem: MappedFormat) => {
   if (!OPENAI_API_KEY) {
     throw new Error("NO OPENAI ACCESS TOKEN");
   }
@@ -86,5 +85,46 @@ export const convertJsonToTsx = async () => {
     }
   } catch (error) {
     console.error("Произошла ошибка convertJsonToTsx:", error);
+  }
+};
+
+const PROMPT_MESSAGE = `You are a helpful assistant that converts Figma JSON with styles to TSX. 
+  I will send you json object, please convert it to a react typescript component which I can copy and paste into .tsx file and it will work properly without any bugs. 
+  ## constraints
+  - do not omit any details in TSX
+  - write only tsx
+  - don not use comments
+  - use styled components for styling
+  `;
+
+export const getModels = async () => {
+  return openai.models.list();
+};
+
+export const convertFigmaJsonToReactComponent = async (componentName: string) => {
+  try {
+    const jsonItemString: string = await readFile(`./src/figma/json-components/${componentName}.json`, "utf-8");
+    const jsonItem: OriginalFormat = JSON.parse(jsonItemString);
+
+    const userPrompt: UserPrompt = {
+      role: "user",
+      content: JSON.stringify(jsonItem),
+    };
+
+    const messages: CreateChatCompletionRequestMessage[] = [
+      {
+        role: "system",
+        content: PROMPT_MESSAGE,
+      },
+      { ...userPrompt },
+    ];
+
+    return openai.chat.completions.create({
+      messages,
+      model: "gpt-4",
+      temperature: 0,
+    });
+  } catch (e) {
+    throw new Error(`convertFigmaJsonToReactComponent error ${e}`);
   }
 };
