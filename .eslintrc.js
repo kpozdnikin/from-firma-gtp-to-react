@@ -5,7 +5,7 @@ module.exports = {
   },
   settings: {
     "import/extensions": [".ts", ".tsx"],
-    "import/ignore": ["node_modules", "\\.(css|scss|json)$"],
+    "import/ignore": ["node_modules", "\\.(css|scss|json)$", "src/figma/tsx-components"],
   },
   extends: [
     "eslint:recommended",

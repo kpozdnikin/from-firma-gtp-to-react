@@ -1,7 +1,9 @@
 import fs from "fs";
+import path from "path";
 import OpenAI from "openai";
 import { CreateChatCompletionRequestMessage } from "openai/src/resources/chat/completions";
 import dotenv from "dotenv";
+import { FileObject } from "openai/resources";
 import { MappedFormat, OriginalFormat, UserPrompt } from "../types";
 import { readFile } from "../utils";
 
@@ -13,6 +15,31 @@ const OPENAI_FINE_TUNNING_JOB_ID = process.env.OPENAI_FINE_TUNNING_JOB_ID;
 const INTRO_MESSAGE =
   "You are a helpful assistant that converts Figma JSON with styles to TSX. " +
   "I will send you json object, please convert it to a react typescript component which I can copy and paste into .tsx file and it will work properly without any bugs.";
+const SYSTEM_ENTIRE_MESSAGE = "You are a helpful assistant that converts Figma JSON with styles to TSX.";
+const USER_MESSAGE =
+  "I will send you json object, please convert it to a react typescript component which I can copy and paste into .tsx file and it will work properly without any bugs. \n  ## constraints\n  - do not omit any details in TSX\n  - write only tsx\n  - don not use comments\n  - use styled components for styling";
+const PROMPT_MESSAGE = `${SYSTEM_ENTIRE_MESSAGE} ${USER_MESSAGE}`;
+
+const fineTuneTemplate = {
+  messages: [
+    {
+      role: "system",
+      content: SYSTEM_ENTIRE_MESSAGE,
+    },
+    {
+      role: "user",
+      content: USER_MESSAGE,
+    },
+    {
+      role: "user",
+      content: "",
+    },
+    {
+      role: "assistant",
+      content: "",
+    },
+  ],
+};
 
 const openai = new OpenAI({
   organization: OPEN_AI_ORG_ID,
@@ -31,9 +58,9 @@ uploadedFile {
   status_details: null
 }
  */
-export const createFineTuningFile = () => {
+export const createFineTuningFile = (file: string) => {
   return openai.files.create({
-    file: fs.createReadStream("fineTune.jsonl"),
+    file: fs.createReadStream(file),
     purpose: "fine-tune",
   });
 };
@@ -45,11 +72,11 @@ export const createFineTuningJob = (fileName: string) => {
   });
 };
 
-export const retrieveFineTuningJob = () => {
-  return openai.fineTuning.jobs.retrieve(OPENAI_FINE_TUNNING_JOB_ID);
+export const retrieveFineTuningJob = (jobId: string) => {
+  return openai.fineTuning.jobs.retrieve(jobId);
 };
 
-export const convertFigmaJsonToHtml = async (jsonItem: MappedFormat) => {
+export const convertFigmaJsonToTsx = async (model, jsonItem: string) => {
   if (!OPENAI_API_KEY) {
     throw new Error("NO OPENAI ACCESS TOKEN");
   }
@@ -62,40 +89,40 @@ export const convertFigmaJsonToHtml = async (jsonItem: MappedFormat) => {
   const messages: CreateChatCompletionRequestMessage[] = [
     {
       role: "system",
-      content: INTRO_MESSAGE,
+      content: SYSTEM_ENTIRE_MESSAGE,
+    },
+    {
+      role: "user",
+      content: USER_MESSAGE,
     },
     { ...userPrompt },
   ];
 
   return openai.chat.completions.create({
     messages,
-    model: `ft:gpt-3.5-turbo-0613:usetech::7vlSlcrp`,
+    model,
   });
 };
 
-export const convertJsonToTsx = async () => {
-  const rawData = await readFile("figmaDataMapped.json", "utf-8");
-  const jsonData: MappedFormat[] = JSON.parse(rawData);
+export const convertJsonToTsx = async (model: string) => {
+  const directoryPath = "./src/figma/json-components/";
 
-  try {
-    for (const item of jsonData) {
-      const itemResult = await convertFigmaJsonToHtml(item);
+  fs.readdir(directoryPath, async (err, files) => {
+    try {
+      for (const file of files) {
+        const filePath = path.join(directoryPath, file);
+        const jsonItemString: string = await readFile(filePath, "utf-8");
+        const itemResult = await convertFigmaJsonToTsx(model, jsonItemString);
 
-      await fs.writeFileSync(`./result/${item.name}.tsx`, itemResult?.choices?.[0]?.message?.content);
+        console.log("itemResult", itemResult);
+
+        await fs.writeFileSync(`./result/${file.replace(".json", ".tsx")}`, itemResult?.choices?.[0]?.message?.content);
+      }
+    } catch (error) {
+      console.error("Произошла ошибка convertFigmaJsonToTsx:", error);
     }
-  } catch (error) {
-    console.error("Произошла ошибка convertJsonToTsx:", error);
-  }
+  });
 };
-
-const PROMPT_MESSAGE = `You are a helpful assistant that converts Figma JSON with styles to TSX. 
-  I will send you json object, please convert it to a react typescript component which I can copy and paste into .tsx file and it will work properly without any bugs. 
-  ## constraints
-  - do not omit any details in TSX
-  - write only tsx
-  - don not use comments
-  - use styled components for styling
-  `;
 
 export const getModels = async () => {
   return openai.models.list();
@@ -126,5 +153,80 @@ export const convertFigmaJsonToReactComponent = async (componentName: string) =>
     });
   } catch (e) {
     throw new Error(`convertFigmaJsonToReactComponent error ${e}`);
+  }
+};
+
+export const appendFineTuneStr = (jsonItemString: string, tsxItemString: string) => {
+  const newStr = { ...fineTuneTemplate };
+
+  newStr.messages[2].content = jsonItemString;
+  newStr.messages[3].content = tsxItemString;
+
+  fs.appendFile("./src/figma/fine-tuning-prompts/fine-tune.jsonl", JSON.stringify(newStr) + "\n", (err) => {
+    if (err) {
+      console.error(`Error appending to file fine-tune.jsonl:`, err);
+    }
+  });
+};
+
+export const fillFineTuneJson = async () => {
+  const directoryPath = "./src/figma/json-components/";
+
+  fs.readdir(directoryPath, async (err, files) => {
+    if (err) {
+      return console.error("Error reading the directory:", err);
+    }
+
+    for (const file of files) {
+      const filePath = path.join(directoryPath, file);
+
+      console.log("file", file);
+
+      try {
+        const jsonItemString: string = await readFile(filePath, "utf-8");
+        const tsxItemString: string = await readFile(
+          `${directoryPath.replace("json-components/", "tsx-components/")}${file.replace(".json", ".tsx")}`,
+          "utf-8",
+        );
+
+        appendFineTuneStr(jsonItemString, tsxItemString);
+      } catch (e) {
+        console.log("fillFineTuneJson error", e);
+      }
+    }
+  });
+};
+
+export const useFineTuning = async () => {
+  /*
+  const fineTuneFile = "./src/figma/fine-tuning-prompts/fine-tune.jsonl";
+  const uploadedFile: FileObject = await createFineTuningFile(fineTuneFile);
+
+  console.log("uploadedFile", uploadedFile);
+
+  if (!uploadedFile?.id) {
+    throw new Error(`Failed to create openAi file = ${fineTuneFile}`);
+  }*/
+
+  /* const openAiFileId = uploadedFile.id;
+
+  const fineTuningJob = await createFineTuningJob(openAiFileId);
+
+  console.log("fineTuningJob", fineTuningJob);
+
+  if (!fineTuningJob?.id) {
+    throw new Error(`Failed to fetch fine tuning job from file id = ${openAiFileId}`);
+  }
+
+  */
+
+  const job = await retrieveFineTuningJob("ftjob-KjyD3NeJF775qBPGenmL9zMI");
+
+  console.log("job", job);
+
+  // Before using the job make sure it's status became "succeeded" and fine_tuned_model !== null
+
+  if (job.fine_tuned_model && job.status === "succeeded") {
+    await convertJsonToTsx(job.fine_tuned_model);
   }
 };

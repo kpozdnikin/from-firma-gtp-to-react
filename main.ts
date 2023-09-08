@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { convertFigmaJsonToReactComponent, getModels } from "./src/gpt/openai.utils";
+import {convertFigmaJsonToReactComponent, fillFineTuneJson, getModels, useFineTuning} from "./src/gpt/openai.utils";
 
 dotenv.config();
 
@@ -11,9 +11,12 @@ dotenv.config();
   // await saveDataToFile(figmaData, "figmaData.json");
   // 3. Split data to a separate objects without children key
   // 4. Convert each object to a separate tsx component in a separate file
-  const result = await getModels();
   // const result = await convertFigmaJsonToReactComponent("header");
 
-  console.log("result", result);
+  // Fill fine tune jsonl file for the gpt3 fine tuning purpose
+  // await fillFineTuneJson();
+  // Tune model
+  await useFineTuning();
+
   // 5. Build the app to render everything in a one file
 })();
