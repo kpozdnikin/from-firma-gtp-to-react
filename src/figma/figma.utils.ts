@@ -1,100 +1,97 @@
-import fs from "fs";
-import axios from "axios";
-import dotenv from "dotenv";
-import { CssLayout, FigmaData, MappedFormat, OriginalFormat } from "../types";
-import { findTargetRootNode, readFile } from "../utils";
-import { mapDataRecursive } from "./mapData";
+import axios, { AxiosError } from 'axios';
 
-dotenv.config();
+interface FigmaResponse {
+  document: any;
+  components: any;
+  styles: any;
+}
 
-const FIGMA_FILE_ID = process.env.FIGMA_FILE_ID;
-const FIGMA_ACCESS_TOKEN = process.env.FIRMA_API_KEY;
-const ID_TO_FIND = process.env.TARGET_ROOT_ID;
-
-export const fetchFigmaData = async (): Promise<FigmaData> => {
-  if (!FIGMA_FILE_ID) {
-    throw new Error("NO FIGMA FILE ID");
-  }
-
+export async function fetchFigmaData(fileId: string): Promise<FigmaResponse> {
+  const FIGMA_ACCESS_TOKEN = process.env.FIRMA_API_KEY;
+  
   if (!FIGMA_ACCESS_TOKEN) {
-    throw new Error("NO FIGMA ACCESS TOKEN");
+    throw new Error('FIRMA_API_KEY is not defined');
   }
 
-  const response = await axios.get(`https://api.figma.com/v1/files/${FIGMA_FILE_ID}`, {
-    headers: {
-      "X-Figma-Token": FIGMA_ACCESS_TOKEN,
-    },
-  });
+  if (!fileId) {
+    throw new Error('FIGMA_FILE_ID is not defined');
+  }
 
-  return response.data;
-};
+  const url = `https://api.figma.com/v1/files/${fileId}`;
+  console.log('Fetching Figma data from:', url);
 
-export const figmaToCss = (figmaObject: OriginalFormat): CssLayout => {
-  const css: CssLayout = {
-    display: "flex",
-    flexDirection: figmaObject.layoutMode === "HORIZONTAL" ? "row" : "column",
-  };
-
-  if (figmaObject.primaryAxisAlignItems === "SPACE_BETWEEN") {
-    css.justifyContent = "space-between";
-  } else {
-    if (figmaObject.layoutMode === "HORIZONTAL") {
-      switch (figmaObject.primaryAxisAlignItems) {
-        case "MIN":
-          css.justifyContent = "flex-start";
-          break;
-        case "CENTER":
-          css.justifyContent = "center";
-          break;
-        case "MAX":
-          css.justifyContent = "flex-end";
-          break;
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        'X-Figma-Token': FIGMA_ACCESS_TOKEN,
+        'Content-Type': 'application/json'
       }
-    } else {
-      switch (figmaObject.primaryAxisAlignItems) {
-        case "MIN":
-          css.justifyContent = "flex-start";
-          break;
-        case "CENTER":
-          css.justifyContent = "center";
-          break;
-        case "MAX":
-          css.justifyContent = "flex-end";
-          break;
+    });
+    
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      console.error('Figma API Error:', {
+        status: axiosError.response?.status,
+        statusText: axiosError.response?.statusText,
+        data: axiosError.response?.data,
+        headers: axiosError.response?.headers
+      });
+
+      if (axiosError.response?.status === 404) {
+        throw new Error(`Figma file with ID ${fileId} not found`);
       }
+      if (axiosError.response?.status === 403) {
+        throw new Error('Invalid Figma access token or insufficient permissions');
+      }
+    }
+    throw error;
+  }
+}
+
+export function figmaToCss(node: any) {
+  const styles: Record<string, any> = {};
+
+  // Базовое позиционирование
+  if (node.absoluteBoundingBox) {
+    styles.position = 'absolute';
+    styles.left = `${node.absoluteBoundingBox.x}px`;
+    styles.top = `${node.absoluteBoundingBox.y}px`;
+    styles.width = `${node.absoluteBoundingBox.width}px`;
+    styles.height = `${node.absoluteBoundingBox.height}px`;
+  }
+
+  // Фон для header
+  if (node.backgroundColor) {
+    const { r, g, b, a } = node.backgroundColor;
+    styles.backgroundColor = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
+  }
+
+  // Навигационные элементы
+  if (node.layoutMode) {
+    styles.display = 'flex';
+    styles.flexDirection = node.layoutMode.toLowerCase() === 'horizontal' ? 'row' : 'column';
+    styles.justifyContent = 'space-between';
+    styles.alignItems = 'center';
+  }
+
+  // Текстовые стили для навигации
+  if (node.style) {
+    if (node.style.fontFamily) styles.fontFamily = node.style.fontFamily;
+    if (node.style.fontSize) styles.fontSize = `${node.style.fontSize}px`;
+    if (node.style.fontWeight) styles.fontWeight = node.style.fontWeight;
+    if (node.style.textAlignHorizontal) styles.textAlign = node.style.textAlignHorizontal.toLowerCase();
+    if (node.style.letterSpacing) styles.letterSpacing = `${node.style.letterSpacing}px`;
+    if (node.style.lineHeightPx) styles.lineHeight = `${node.style.lineHeightPx}px`;
+    
+    // Добавляем цвет текста
+    if (node.characters) {
+      styles.color = '#FFFFFF';
+      styles.textDecoration = 'none';
+      styles.cursor = 'pointer';
     }
   }
 
-  switch (figmaObject.counterAxisAlignItems) {
-    case "MIN":
-      css.alignItems = "flex-start";
-      break;
-    case "CENTER":
-      css.alignItems = "center";
-      break;
-    case "MAX":
-      css.alignItems = "flex-end";
-      break;
-    case "BASELINE":
-      css.alignItems = "baseline";
-      break;
-  }
-
-  return css;
-};
-
-export const readAndConvertData = async () => {
-  try {
-    // Чтение данных из figmaData.json
-    const rawData = await readFile("figmaData.json", "utf-8");
-    const jsonData: { document: OriginalFormat } = JSON.parse(rawData);
-    const originalData: OriginalFormat = findTargetRootNode(ID_TO_FIND, jsonData.document);
-    const mappedData: MappedFormat[] = mapDataRecursive(originalData);
-
-    await fs.writeFileSync("figmaDataMapped.json", JSON.stringify(mappedData, null, 2));
-
-    console.log("Преобразование завершено. Результат сохранен в figmaDataMapped.json");
-  } catch (error) {
-    console.error("Произошла ошибка:", error);
-  }
-};
+  return styles;
+}

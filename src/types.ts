@@ -10,65 +10,34 @@ export interface OriginalFormat {
     width: number;
     height: number;
   };
-  background: {
-    blendMode: string;
-    type: string;
-    color: {
-      r: number;
-      g: number;
-      b: number;
-      a: number;
-    };
-  }[];
-  backgroundColor: {
+  backgroundColor?: {
     r: number;
     g: number;
     b: number;
     a: number;
   };
-  itemSpacing: number;
-  paddingLeft: number;
-  paddingRight: number;
-  paddingTop: number;
-  paddingBottom?: number;
-  layoutMode?: "HORIZONTAL" | "VERTICAL";
-  primaryAxisAlignItems?: "SPACE_BETWEEN" | "CENTER" | "MIN" | "MAX";
-  counterAxisAlignItems: "CENTER" | "MIN" | "MAX" | "BASELINE";
   style?: {
     fontFamily?: string;
-    fontPostScriptName?: string;
     fontWeight?: number;
     fontSize?: number;
-    textAlignHorizontal?: "LEFT" | "RIGHT" | "CENTER";
-    textAlignVertical?: "BASELINE" | "TOP" | "MIDDLE" | "BOTTOM" | "SUB" | "TEXT-TOP";
-    letterSpacing?: string;
+    textAlignHorizontal?: string;
+    textAlignVertical?: string;
+    letterSpacing?: number;
     lineHeightPx?: number;
   };
+  paddingTop?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  paddingLeft?: number;
 }
 
 export interface MappedFormat {
   name: string;
   id: string;
-  parent: null | string;
+  parent: string | null;
   type: string;
-  text?: string;
-  styles: {
-    backgroundColor: string;
-    paddingLeft?: number;
-    paddingRight?: number;
-    paddingTop?: number;
-    paddingBottom?: number;
-    width?: number;
-    height: number;
-    fontFamily?: string;
-    fontPostScriptName?: string;
-    fontWeight?: number;
-    fontSize?: number;
-    textAlign?: "LEFT" | "RIGHT" | "CENTER";
-    verticalAlign?: "BASELINE" | "TOP" | "MIDDLE" | "BOTTOM" | "SUB" | "TEXT-TOP";
-    letterSpacing?: string;
-    lineHeight?: string;
-  };
+  text: string;
+  styles: Record<string, any>;
 }
 
 export interface FigmaData {
